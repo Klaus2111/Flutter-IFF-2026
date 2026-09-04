@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "886342977195",
+    "project_id": "pdm-2026-75382",
+    "storage_bucket": "pdm-2026-75382.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886342977195:android:34897ebe4a369fd53719ee",
+        "android_client_info": {
+          "package_name": "com.example.agenda_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtGIY-YGdifhkA-GpMNrRBa-rLj6fIDc0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
