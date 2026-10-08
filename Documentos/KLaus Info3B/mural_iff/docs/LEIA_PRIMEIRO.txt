@@ -1,0 +1,93 @@
+MURAL IFF — ENTREGA PARA AULA
+Aluno: Klaus Samuel de Souza Setta | Turma: INFO3B
+Programação para Dispositivos Móveis
+
+O QUE HÁ NESTE PACOTE
+
+1. Mural_IFF_demo.apk: instalador Android para demonstração.
+2. Mural_IFF_codigo_fonte.zip: projeto Flutter com código, configurações,
+   testes e guia README.md.
+3. web_compilado: versão já compilada para navegador.
+4. roteiro-apresentacao.md: roteiro para explicar o projeto ao professor.
+5. ABRIR_NO_COMPUTADOR.bat: inicia a versão Web no Windows com Python.
+
+ESTADO DA ENTREGA
+
+As versões Android e Web compilaram e os quatro testes locais passaram.
+O Firebase Authentication já aceita login por e-mail e senha.
+O Firestore já foi criado em São Paulo, com autorização do aluno, e as
+regras foram publicadas. Os três índices já aparecem como Enabled.
+O cadastro e a entrada da primeira conta fictícia foram verificados.
+O teste completo de conversa entre duas contas não foi concluído: o limite
+de uso impediu a revisão automática da etapa de cadastro da segunda conta.
+Cadastre suas próprias contas e faça o teste descrito abaixo antes da aula.
+
+SALVAR E ABRIR EM SALA
+
+- Envie Mural_IFF_entrega.zip ao seu Google Drive.
+- Antes da aula, baixe e extraia o ZIP no computador ou celular usado.
+- Não execute o projeto de dentro do ZIP ou apenas da visualização do Drive.
+- Leve internet disponível: o aplicativo acessa o Firebase online.
+
+NO CELULAR ANDROID
+
+Abra Mural_IFF_demo.apk em um celular com Android 7.0 ou superior e siga
+as instruções de instalação do aparelho. O APK é uma versão de teste.
+Não foi verificado em um aparelho físico.
+
+NO COMPUTADOR COM FLUTTER
+
+Extraia Mural_IFF_codigo_fonte.zip. Abra a pasta mural_iff no VS Code ou
+Android Studio. No terminal dessa pasta, execute:
+
+flutter pub get
+flutter run -d chrome
+
+O projeto foi compilado com Flutter 3.47.1 / Dart 3.13.1. Caso use um Flutter
+mais antigo, confira os requisitos no pubspec.yaml.
+
+NO COMPUTADOR COM PYTHON, SEM FLUTTER
+
+Após extrair todo o pacote, dê dois cliques em ABRIR_NO_COMPUTADOR.bat
+e acesse http://localhost:8765. Mantenha a janela aberta durante o uso.
+
+Também é possível iniciar manualmente. Abra o terminal na pasta
+web_compilado e execute:
+
+python -m http.server 8765 --bind 127.0.0.1
+
+Mantenha o terminal aberto e acesse http://localhost:8765 no navegador.
+Se o Python do Windows usar o comando py, substitua python por py.
+Não basta dar dois cliques no index.html: a versão Web precisa de servidor.
+
+CONFIGURAÇÃO DO FIREBASE (PARA CONSULTA OU RECRIAÇÃO)
+
+Abra https://console.firebase.google.com/project/mural-iff-63e6c/firestore
+na conta proprietária do projeto. O banco e as regras já foram configurados;
+os passos abaixo ficam documentados para conferir ou recriar a configuração.
+
+1. Crie o banco (default), edição Standard, em modo de produção.
+2. Escolha uma região consciente de que ela não poderá ser alterada depois.
+3. Na aba Rules, cole o conteúdo de mural_iff/firestore.rules e publique.
+4. Na aba Indexes, crie os três índices abaixo, coleção perguntas, escopo
+   Collection. Aguarde o estado Enabled para testar os filtros.
+
+   disciplina Ascending + criadaEm Descending
+   resolvida Ascending + criadaEm Descending
+   disciplina Ascending + resolvida Ascending + criadaEm Descending
+
+5. Cadastre duas contas no aplicativo, usando sessões independentes (por
+   exemplo celular e navegador). Publique com uma e responda com a outra.
+6. Mostre os filtros, a mudança para Resolvida feita pelo autor e a opção
+   de lembrar o e-mail. O roteiro detalhado está no README do projeto.
+
+ONDE ESTÁ CADA REQUISITO
+
+Coleção: perguntas.
+Subcoleção: respostas, dentro de cada pergunta.
+Firebase Authentication: lib/telas/login.dart.
+Shared Preferences: lib/servicos/preferencias.dart.
+Filtros no banco: lib/servicos/banco.dart (disciplina e resolvida).
+Interação entre usuários: lib/telas/detalhes.dart (respostas em tempo real).
+
+Abra o roteiro e pratique explicar o código com suas palavras antes da aula.

@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function logado() { return request.auth != null; }
+    function textoValido(texto, minimo, maximo) {
+      return texto is string && texto.size() >= minimo && texto.size() <= maximo;
+    }
+    match /perguntas/{id} {
+      allow read: if logado();
+      allow create: if logado()
+        && request.resource.data.keys().hasOnly(['titulo', 'texto', 'disciplina', 'autorId', 'autorNome', 'resolvida', 'criadaEm'])
+        && request.resource.data.autorId == request.auth.uid
+        && textoValido(request.resource.data.autorNome, 2, 60)
+        && textoValido(request.resource.data.titulo, 5, 100)
+        && textoValido(request.resource.data.texto, 10, 2000)
+        && request.resource.data.disciplina in ['Programação', 'Banco de Dados', 'Redes', 'Matemática', 'Português', 'Física', 'Química', 'Biologia', 'Outras']
+        && request.resource.data.resolvida == false
+        && request.resource.data.criadaEm == request.time;
+      // O autor só pode mudar a situação; autoria e conteúdo permanecem intactos.
+      allow update: if logado() && resource.data.autorId == request.auth.uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['resolvida'])
+        && request.resource.data.resolvida is bool;
+      allow delete: if false;
+
+      match /respostas/{respostaId} {
+        allow read: if logado();
+        allow create: if logado()
+          && exists(/databases/$(database)/documents/perguntas/$(id))
+          && request.resource.data.keys().hasOnly(['texto', 'autorId', 'autorNome', 'criadaEm'])
+          && request.resource.data.autorId == request.auth.uid
+          && textoValido(request.resource.data.autorNome, 2, 60)
+          && textoValido(request.resource.data.texto, 2, 2000)
+          && request.resource.data.criadaEm == request.time;
+        allow update, delete: if false;
+      }
+    }
+  }
+}

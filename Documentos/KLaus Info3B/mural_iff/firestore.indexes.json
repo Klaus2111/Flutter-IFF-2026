@@ -1,0 +1,12 @@
+{
+  "indexes": [
+    {"collectionGroup": "perguntas", "queryScope": "COLLECTION", "fields": [
+      {"fieldPath": "disciplina", "order": "ASCENDING"}, {"fieldPath": "criadaEm", "order": "DESCENDING"}]},
+    {"collectionGroup": "perguntas", "queryScope": "COLLECTION", "fields": [
+      {"fieldPath": "resolvida", "order": "ASCENDING"}, {"fieldPath": "criadaEm", "order": "DESCENDING"}]},
+    {"collectionGroup": "perguntas", "queryScope": "COLLECTION", "fields": [
+      {"fieldPath": "disciplina", "order": "ASCENDING"}, {"fieldPath": "resolvida", "order": "ASCENDING"},
+      {"fieldPath": "criadaEm", "order": "DESCENDING"}]}
+  ],
+  "fieldOverrides": []
+}
